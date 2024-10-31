@@ -218,6 +218,8 @@ Current socket timeout: 100
 
 ## SOCKET05_SOCKETBUFFERSIZE.PY
 
+Kode ini menunjukkan cara mendapatkan dan mengatur ukuran buffer pengiriman dan penerimaan dari soket. Modifikasi buffer dapat mempengaruhi performa jaringan, terutama dalam pengiriman dan penerimaan data. Ukuran buffer yang lebih besar dapat meningkatkan throughput pada jaringan berlatensi tinggi, tetapi juga memerlukan lebih banyak memori.
+
 ```python
 # Nama=
 # NIM=
@@ -253,15 +255,80 @@ Fungsi `modify_buff_size()` melakukan hal berikut:
 .
 `print("Buffer size [Before]:%d" % bufsize)` mencetak ukuran buffer pengiriman sebelum modifikasi.
 
-`sock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)` mengatur opsi TCP_NODELAY untuk menonaktifkan algoritma Nagle, sehingga data dikirim segera tanpa menunggu buffer penuh.
+`sock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)` mengatur opsi `TCP_NODELAY` untuk menonaktifkan algoritma Nagle, sehingga data dikirim segera tanpa menunggu buffer penuh.
 
-`sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, SEND_BUF_SIZE)` mengatur ukuran buffer pengiriman (SO_SNDBUF) menjadi nilai SEND_BUF_SIZE (4096 byte).
+`sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, SEND_BUF_SIZE)` mengatur ukuran buffer pengiriman (`SO_SNDBUF`) menjadi nilai `SEND_BUF_SIZE` (4096 byte).
 
-`sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, RECV_BUF_SIZE)` mengatur ukuran buffer penerimaan (SO_RCVBUF) menjadi nilai RECV_BUF_SIZE (4096 byte).
+`sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, RECV_BUF_SIZE)` mengatur ukuran buffer penerimaan (`SO_RCVBUF`) menjadi nilai `RECV_BUF_SIZE` (4096 byte).
 
-`sock.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)` mendapatkan ukuran buffer pengiriman setelah modifikasi, dan menyimpan nilainya dalam bufsize.
+`sock.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)` mendapatkan ukuran buffer pengiriman setelah modifikasi, dan menyimpan nilainya dalam `bufsize`.
 
 `print("Buffer size [After]:%d" % bufsize)` mencetak ukuran buffer pengiriman setelah modifikasi.
+
+### Output
+Jika program dijalankan, outputnya akan menampilkan ukuran buffer pengiriman sebelum dan sesudah modifikasi, berikut adalah tampilannya:
+
+```cmd
+Buffer size [Before]:[ukuran_buffer_awal]
+Buffer size [After]:4096
+```
+
+## SOCKET06_PRINTTIME.PY
+
+Kode ini menunjukkan cara mengambil dan menampilkan waktu dari server NTP menggunakan Python. Server NTP menyediakan waktu yang akurat, sehingga program ini dapat digunakan untuk sinkronisasi waktu pada perangkat atau aplikasi yang memerlukan waktu yang tepat. berikut adalah penjelasannya.
+
+```python
+# Install ntplib on your Python before doing this.
+
+import ntplib
+from time import ctime
+
+def print_time():
+    ntp_client = ntplib.NTPClient()
+    response = ntp_client.request('pool.ntp.org')
+    print(ctime(response.tx_time))
+
+if __name__ == '__main__':
+    print_time()
+```
+
+Kode ini menggunakan modul `ntplib` untuk mengambil waktu dari server NTP (Network Time Protocol) eksternal dan mencetaknya dalam format yang dapat dibaca manusia. Berikut penjelasan setiap bagian kode:
+
+```python
+import ntplib
+from time import ctime
+```
+
+Baris ini mengimpor modul `ntplib`, yang digunakan untuk berkomunikasi dengan server NTP, serta fungsi `ctime` dari modul `time`, yang digunakan untuk mengonversi waktu dalam format UNIX ke dalam format yang lebih mudah dibaca oleh manusia.
+
+```python
+def print_time():
+    ntp_client = ntplib.NTPClient()
+    response = ntp_client.request('pool.ntp.org')
+    print(ctime(response.tx_time))
+```
+
+Fungsi print_time() melakukan hal berikut:
+
+`ntp_client = ntplib.NTPClient()` membuat objek `ntp_client` sebagai kelas `NTPClient` yang disediakan oleh modul `ntplib`. Objek ini digunakan untuk mengirim permintaan ke server NTP.
+
+`response = ntp_client.request('pool.ntp.org')` mengirim permintaan ke server NTP publik (`pool.ntp.org`) untuk mendapatkan waktu saat ini. Server `pool.ntp.org` adalah kumpulan server NTP yang menyediakan waktu yang akurat. Hasilnya disimpan dalam variabel `response`.
+
+`print(ctime(response.tx_time))` mengambil atribut `tx_time` dari `response`, yang berisi waktu saat ini dalam format UNIX (jumlah detik sejak 1 Januari 1970), dan mengonversinya ke format yang lebih mudah dibaca menggunakan `ctime`. Hasilnya kemudian dicetak.
+
+### Output
+Jika program dijalankan, outputnya akan menampilkan waktu saat ini berdasarkan waktu dari server NTP, dalam format yang lebih mudah dibaca, berikut adalah tampilannya:
+
+```cmd
+Thu Oct 31 11:26:13 2024
+```
+
+
+
+
+
+
+
 
 
 
