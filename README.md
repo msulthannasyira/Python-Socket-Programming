@@ -180,6 +180,8 @@ Port: 53 => service name: domain
 
 ## SOCKET04_SOCKETTIMEOUT.PY
 
+Kode ini menunjukkan cara mengatur dan memeriksa waktu tunggu untuk operasi soket. Dengan mengatur waktu tunggu, Anda dapat mengontrol berapa lama soket akan menunggu saat melakukan operasi yang memblokir sebelum memutuskan operasi tersebut (timeout) yang berguna untuk mencegah program terkunci dalam operasi jaringan yang memakan waktu terlalu lama.
+
 ```python
 # Nama=
 # NIM=
