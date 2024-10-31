@@ -56,8 +56,8 @@ Bagian ini adalah titik awal eksekusi program. Kondisi if `__name__ == '__main__
 Jika program dijalankan, outputnya akan menampilkan nama host dan alamat IP mesin yang menjalankan program, berikut adalah hasil screenshot-nya:
 
 ```cmd
-Host name: my-computer
-IP address: 192.168.1.5
+Host name: kucingimut
+IP address: 11.3.25.181
 ```
 
 ## SOCKET02_GETINFO.PY
@@ -124,7 +124,7 @@ IP address of www.python.org: 138.197.63.241
 Jika terjadi kesalahan, seperti masalah koneksi atau nama host yang tidak ditemukan, output akan menampilkan pesan kesalahan seperti berikut:
 
 ```cmd
-www.python.org: [Errno -2] Name or service not known
+IP address of www.python.org: 199.232.44.223
 ```
 
 ## SOCKET03_SERVICENAME.PY
@@ -213,7 +213,7 @@ Jika program dijalankan, outputnya akan menampilkan nilai waktu tunggu default d
 
 ```cmd
 Default socket timeout: None
-Current socket timeout: 100
+Current socket timeout: 100.0
 ```
 
 ## SOCKET05_SOCKETBUFFERSIZE.PY
@@ -269,7 +269,7 @@ Fungsi `modify_buff_size()` melakukan hal berikut:
 Jika program dijalankan, outputnya akan menampilkan ukuran buffer pengiriman sebelum dan sesudah modifikasi, berikut adalah tampilannya:
 
 ```cmd
-Buffer size [Before]:[ukuran_buffer_awal]
+Buffer size [Before]:65536
 Buffer size [After]:4096
 ```
 
@@ -320,8 +320,104 @@ Fungsi print_time() melakukan hal berikut:
 Jika program dijalankan, outputnya akan menampilkan waktu saat ini berdasarkan waktu dari server NTP, dalam format yang lebih mudah dibaca, berikut adalah tampilannya:
 
 ```cmd
-Thu Oct 31 11:26:13 2024
+Thu Oct 31 10:06:15 2024
 ```
+
+## SOCKET07_SNTPCLIENT.PY
+
+Kode ini menunjukkan cara menggunakan socket untuk mengambil dan menampilkan waktu dari server NTP menggunakan Python. Dengan memanfaatkan server NTP, program ini dapat digunakan untuk mendapatkan waktu yang akurat, yang bermanfaat dalam aplikasi yang memerlukan sinkronisasi waktu.
+
+```python
+# Nama=
+# NIM=
+
+import socket
+import struct
+import sys
+import time
+
+NTP_SERVER = "0.uk.pool.ntp.org"
+TIME1970 = 2208988800
+
+def sntp_client():
+    client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    data = '\x1b' + 47 * '\0'
+    client.sendto(data.encode('utf-8'), (NTP_SERVER, 123))
+    data, address = client.recvfrom(1024)
+    
+    if data:
+        print("Response received from:", address)
+        t = struct.unpack('!12I', data)[10]
+        t -= TIME1970
+        print("\tTime=%s" % time.ctime(t))
+
+if __name__ == '__main__':
+    sntp_client()
+```
+
+Pada baris awal terdapat fungsi `import` yang mengimpor beberapa modul:
+
+`socket` digunakan untuk melakukan komunikasi jaringan.
+
+`struct` digunakan untuk mengonversi antara representasi data dalam memori dan format biner.
+
+`sys` digunakan untuk menangani argumen yang diberikan ke program (meskipun tidak digunakan secara eksplisit dalam kode ini).
+
+`time` digunakan untuk mengonversi waktu dalam format UNIX ke dalam format yang lebih mudah dibaca oleh manusia.
+
+```python
+NTP_SERVER = "0.uk.pool.ntp.org"
+TIME1970 = 2208988800
+```
+
+`NTP_SERVER` adalah alamat server NTP yang digunakan untuk mengambil waktu. Dalam hal ini, server yang dipilih adalah `0.uk.pool.ntp.org`.
+`TIME1970` adalah konstanta yang merepresentasikan jumlah detik antara 1 Januari 1900 dan 1 Januari 1970, yang digunakan untuk konversi waktu.
+
+```python
+def sntp_client():
+    client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    data = '\x1b' + 47 * '\0'
+    client.sendto(data.encode('utf-8'), (NTP_SERVER, 123))
+    data, address = client.recvfrom(1024)
+```
+
+Fungsi `sntp_client()` melakukan hal berikut:
+
+`client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)` membuat objek client sebagai instans dari socket UDP.
+
+`data = '\x1b' + 47 * '\0'` mempersiapkan paket data yang akan dikirim ke server NTP. Karakter pertama \x1b adalah kode yang menunjukkan permintaan untuk waktu, diikuti dengan 47 karakter null yang diperlukan untuk format NTP.
+
+`client.sendto(data.encode('utf-8'), (NTP_SERVER, 123))` mengirimkan paket data ke server NTP pada port 123 (port yang digunakan untuk NTP).
+
+`data, address = client.recvfrom(1024)` menerima data respons dari server NTP, hingga 1024 byte, dan menyimpan alamat pengirimnya.
+
+```python
+if data:
+    print("Response received from:", address)
+    t = struct.unpack('!12I', data)[10]
+    t -= TIME1970
+    print("\tTime=%s" % time.ctime(t))
+```
+
+Bagian ini memeriksa apakah ada respons dari server. Jika ada `if`, maka:
+
+`print("Response received from:", address)` mencetak alamat server yang mengirimkan respons.
+
+`t = struct.unpack('!12I', data)[10]` menggunakan `struct.unpack` untuk mengekstrak waktu dari respons NTP. Data dipecah menjadi 12 bilangan bulat, dan bilangan bulat ke-10 (indeks 10) berisi waktu saat ini dalam format UNIX.
+
+`t -= TIME1970` mengurangi `TIME1970` dari waktu yang diterima untuk mendapatkan waktu dalam detik sejak 1 Januari 1970.
+
+`print("\tTime=%s" % time.ctime(t))` mengonversi waktu tersebut ke dalam format yang lebih mudah dibaca oleh manusia dan mencetaknya.
+
+### Output
+Jika program dijalankan, outputnya akan menampilkan waktu saat ini berdasarkan waktu dari server NTP, dalam format yang lebih mudah dibaca, tampilannya seperti berikut:
+
+```cmd
+Response received from: ('82.229.2.1', 123)
+        Time=Thu Oct 31 10:06:26 2024
+```
+
+
 
 
 
