@@ -37,13 +37,13 @@ def print_machine_info():
 ```
 Bagian ini menjalankan fungsi print_machine_info() yang melakukan beberapa hal seperti:
 
-`host_name = socket.gethostname()` berfungsi untuk mendapatkan nama host dari mesin yang menjalankan program.
+•	`host_name = socket.gethostname()` berfungsi untuk mendapatkan nama host dari mesin yang menjalankan program.
 
-`ip_address = socket.gethostbyname(host_name)` menggunakan nama host untuk mendapatkan alamat IP yang sesuai dengan mesin ini.
+•	`ip_address = socket.gethostbyname(host_name)` menggunakan nama host untuk mendapatkan alamat IP yang sesuai dengan mesin ini.
 
-`print("Host name: %s" % host_name)` berfungsi untuk mencetak nama host ke layar.
+•	`print("Host name: %s" % host_name)` berfungsi untuk mencetak nama host ke layar.
 
-`print("IP address: %s" % ip_address)` berfungsi untuk mencetak alamat IP ke layar.
+•	`print("IP address: %s" % ip_address)` berfungsi untuk mencetak alamat IP ke layar.
 
 ```python
 if __name__ == '__main__':
@@ -96,17 +96,17 @@ def get_remote_machine_info():
 
 Bagian ini mendefinisikan fungsi `get_remote_machine_info()` yang melakukan berfungsi untuk menjalankan fungsi berikut:
 
-`remote_host = 'www.python.org'` berfungsi untuk menetapkan remote_host sebagai nama domain www.python.org, yang alamat IP-nya ingin kita dapatkan.
+•	`remote_host = 'www.python.org'` berfungsi untuk menetapkan remote_host sebagai nama domain www.python.org, yang alamat IP-nya ingin kita dapatkan.
 
-Blok `try` akan mencoba mengeksekusi kode di dalam blok try.
+•	Blok `try` akan mencoba mengeksekusi kode di dalam blok try.
 
-`socket.gethostbyname(remote_host)` digunakan untuk mendapatkan alamat IP dari nama host remote_host. Jika berhasil, alamat IP dari www.python.org akan dicetak ke layar.
+•	`socket.gethostbyname(remote_host)` digunakan untuk mendapatkan alamat IP dari nama host remote_host. Jika berhasil, alamat IP dari www.python.org akan dicetak ke layar.
 
-`print("IP address of %s: %s" % (remote_host, socket.gethostbyname(remote_host))):` Baris ini mencetak nama host `(remote_host)` dan alamat IP yang dikembalikan oleh `socket.gethostbyname()`.
+•	`print("IP address of %s: %s" % (remote_host, socket.gethostbyname(remote_host))):` Baris ini mencetak nama host `(remote_host)` dan alamat IP yang dikembalikan oleh `socket.gethostbyname()`.
 
-Blok `except socket.error as err_msg:` berlaku jika terjadi kesalahan dalam menghubungi `remote_host` atau kode tidak dapat menemukan alamat IP, blok `except` akan menangani kesalahan tersebut dan mencetak pesan kesalahan.
+•	Blok `except socket.error as err_msg:` berlaku jika terjadi kesalahan dalam menghubungi `remote_host` atau kode tidak dapat menemukan alamat IP, blok `except` akan menangani kesalahan tersebut dan mencetak pesan kesalahan.
 
-`print("%s: %s" % (remote_host, err_msg)):` baris ini mencetak nama host beserta pesan kesalahan `(err_msg)` jika terjadi error.
+•	`print("%s: %s" % (remote_host, err_msg)):` baris ini mencetak nama host beserta pesan kesalahan `(err_msg)` jika terjadi error.
 
 ```python
 if __name__ == '__main__':
@@ -119,12 +119,6 @@ Jika program dijalankan dan berhasil mendapatkan alamat IP, outputnya akan terli
 
 ```cmd
 IP address of www.python.org: 138.197.63.241
-```
-
-Jika terjadi kesalahan, seperti masalah koneksi atau nama host yang tidak ditemukan, output akan menampilkan pesan kesalahan seperti berikut:
-
-```cmd
-IP address of www.python.org: 199.232.44.223
 ```
 
 ## SOCKET03_SERVICENAME.PY
@@ -151,23 +145,23 @@ if __name__ == '__main__':
 
 Fungsi `find_service_name()` pada kode diatas dapat melakukan fungsi sebagai berikut:
 
-`protocolname = 'tcp'` berfungsi untuk menetapkan protokol yang akan digunakan sebagai tcp untuk mengecek layanan yang berjalan pada port-port tertentu.
+•	`protocolname = 'tcp'` berfungsi untuk menetapkan protokol yang akan digunakan sebagai tcp untuk mengecek layanan yang berjalan pada port-port tertentu.
 
-`for port in [80, 25]` berfungsi untuk melakukan iterasi pada daftar port `[80, 25]`.
+•	`for port in [80, 25]` berfungsi untuk melakukan iterasi pada daftar port `[80, 25]`.
 
-`socket.getservbyport(port, protocolname)` digunakan untuk mendapatkan nama layanan berdasarkan nomor port (`port`) dan protokol (`protocolname`). Dalam hal ini, protokolnya adalah `tcp`.
+•	`socket.getservbyport(port, protocolname)` digunakan untuk mendapatkan nama layanan berdasarkan nomor port (`port`) dan protokol (`protocolname`). Dalam hal ini, protokolnya adalah `tcp`.
 
-`print("Port: %s => service name: %s" % (port, socket.getservbyport(port, protocolname)))` bertujuan untuk mencetak nomor port dan nama layanan yang berjalan pada port tersebut.
+•	`print("Port: %s => service name: %s" % (port, socket.getservbyport(port, protocolname)))` bertujuan untuk mencetak nomor port dan nama layanan yang berjalan pada port tersebut.
 
-`print("Port: %s => service name: %s" % (53, socket.getservbyport(53, 'udp')))` Baris ini mencetak nama layanan untuk port 53 menggunakan protokol udp.
+•	`print("Port: %s => service name: %s" % (53, socket.getservbyport(53, 'udp')))` Baris ini mencetak nama layanan untuk port 53 menggunakan protokol udp.
 
 Secara keseluruhan, fungsi ini menampilkan nama layanan yang berjalan pada:
 
-Port 80 dengan protokol TCP (umumnya digunakan untuk HTTP).
+•	Port 80 dengan protokol TCP (umumnya digunakan untuk HTTP).
 
-Port 25 dengan protokol TCP (umumnya digunakan untuk SMTP).
+•	Port 25 dengan protokol TCP (umumnya digunakan untuk SMTP).
 
-Port 53 dengan protokol UDP (umumnya digunakan untuk DNS).
+•	Port 53 dengan protokol UDP (umumnya digunakan untuk DNS).
 
 ### Output
 Jika program dijalankan, outputnya akan menampilkan nama layanan berdasarkan port yang ditentukan seperti berikut:
@@ -200,15 +194,15 @@ if __name__ == '__main__':
 
 Fungsi test_socket_timeout() melakukan hal berikut:
 
-`s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)` berfungsi untuk membuat objek soket s menggunakan alamat `AF_INET (IPv4)` dan tipe soket `SOCK_STREAM` (untuk protokol TCP).
+•	`s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)` berfungsi untuk membuat objek soket s menggunakan alamat `AF_INET (IPv4)` dan tipe soket `SOCK_STREAM` (untuk protokol TCP).
 
-`s.gettimeout()` dapat mengecek dan mendapatkan nilai waktu tunggu (timeout) default dari soket. Nilai timeout awalnya adalah `None`, yang berarti soket tidak memiliki waktu tunggu (tidak ada batas waktu untuk operasi yang memblokir, seperti menerima data).
+•	`s.gettimeout()` dapat mengecek dan mendapatkan nilai waktu tunggu (timeout) default dari soket. Nilai timeout awalnya adalah `None`, yang berarti soket tidak memiliki waktu tunggu (tidak ada batas waktu untuk operasi yang memblokir, seperti menerima data).
 
-`print("Default socket timeout: %s" % s.gettimeout())` mencetak nilai waktu tunggu default dari soket.
+•	`print("Default socket timeout: %s" % s.gettimeout())` mencetak nilai waktu tunggu default dari soket.
 
-`s.settimeout(100)` mengatur waktu tunggu soket menjadi 100 detik. Ini berarti operasi yang memblokir pada soket ini (misalnya, menerima data) akan gagal jika tidak selesai dalam 100 detik.
+•	`s.settimeout(100)` mengatur waktu tunggu soket menjadi 100 detik. Ini berarti operasi yang memblokir pada soket ini (misalnya, menerima data) akan gagal jika tidak selesai dalam 100 detik.
 
-`print("Current socket timeout: %s" % s.gettimeout())` mencetak nilai waktu tunggu saat ini setelah perubahan.
+•	`print("Current socket timeout: %s" % s.gettimeout())` mencetak nilai waktu tunggu saat ini setelah perubahan.
 
 ### Output
 Jika program dijalankan, outputnya akan menampilkan nilai waktu tunggu default dan waktu tunggu baru setelah diubah, berikut adalah hasilnya:
@@ -251,21 +245,21 @@ Variabel SEND_BUF_SIZE dan RECV_BUF_SIZE digunakan untuk menyimpan ukuran buffer
 
 Fungsi `modify_buff_size()` melakukan hal berikut:
 
-`sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)` ebrfungsi untuk membuat objek soket sock menggunakan alamat `AF_INET` (IPv4) dan tipe soket `SOCK_STREAM` (untuk protokol TCP).
+•	`sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)` ebrfungsi untuk membuat objek soket sock menggunakan alamat `AF_INET` (IPv4) dan tipe soket `SOCK_STREAM` (untuk protokol TCP).
 
-`sock.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)` mengambil ukuran buffer pengiriman (`SO_SNDBUF`) dari soket sebelum modifikasi. Nilai ini disimpan dalam variabel `bufsize`
-.
-`print("Buffer size [Before]:%d" % bufsize)` mencetak ukuran buffer pengiriman sebelum modifikasi.
+•	`sock.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)` mengambil ukuran buffer pengiriman (`SO_SNDBUF`) dari soket sebelum modifikasi. Nilai ini disimpan dalam variabel `bufsize`
 
-`sock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)` mengatur opsi `TCP_NODELAY` untuk menonaktifkan algoritma Nagle, sehingga data dikirim segera tanpa menunggu buffer penuh.
+•	`print("Buffer size [Before]:%d" % bufsize)` mencetak ukuran buffer pengiriman sebelum modifikasi.
 
-`sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, SEND_BUF_SIZE)` mengatur ukuran buffer pengiriman (`SO_SNDBUF`) menjadi nilai `SEND_BUF_SIZE` (4096 byte).
+•	`sock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)` mengatur opsi `TCP_NODELAY` untuk menonaktifkan algoritma Nagle, sehingga data dikirim segera tanpa menunggu buffer penuh.
 
-`sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, RECV_BUF_SIZE)` mengatur ukuran buffer penerimaan (`SO_RCVBUF`) menjadi nilai `RECV_BUF_SIZE` (4096 byte).
+•	`sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, SEND_BUF_SIZE)` mengatur ukuran buffer pengiriman (`SO_SNDBUF`) menjadi nilai `SEND_BUF_SIZE` (4096 byte).
 
-`sock.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)` mendapatkan ukuran buffer pengiriman setelah modifikasi, dan menyimpan nilainya dalam `bufsize`.
+•	`sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, RECV_BUF_SIZE)` mengatur ukuran buffer penerimaan (`SO_RCVBUF`) menjadi nilai `RECV_BUF_SIZE` (4096 byte).
 
-`print("Buffer size [After]:%d" % bufsize)` mencetak ukuran buffer pengiriman setelah modifikasi.
+•	`sock.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)` mendapatkan ukuran buffer pengiriman setelah modifikasi, dan menyimpan nilainya dalam `bufsize`.
+
+•	`print("Buffer size [After]:%d" % bufsize)` mencetak ukuran buffer pengiriman setelah modifikasi.
 
 ### Output
 Jika program dijalankan, outputnya akan menampilkan ukuran buffer pengiriman sebelum dan sesudah modifikasi, berikut adalah tampilannya:
@@ -312,11 +306,11 @@ def print_time():
 
 Fungsi print_time() melakukan hal berikut:
 
-`ntp_client = ntplib.NTPClient()` membuat objek `ntp_client` sebagai kelas `NTPClient` yang disediakan oleh modul `ntplib`. Objek ini digunakan untuk mengirim permintaan ke server NTP.
+•	`ntp_client = ntplib.NTPClient()` membuat objek `ntp_client` sebagai kelas `NTPClient` yang disediakan oleh modul `ntplib`. Objek ini digunakan untuk mengirim permintaan ke server NTP.
 
-`response = ntp_client.request('pool.ntp.org')` mengirim permintaan ke server NTP publik (`pool.ntp.org`) untuk mendapatkan waktu saat ini. Server `pool.ntp.org` adalah kumpulan server NTP yang menyediakan waktu yang akurat. Hasilnya disimpan dalam variabel `response`.
+•	`response = ntp_client.request('pool.ntp.org')` mengirim permintaan ke server NTP publik (`pool.ntp.org`) untuk mendapatkan waktu saat ini. Server `pool.ntp.org` adalah kumpulan server NTP yang menyediakan waktu yang akurat. Hasilnya disimpan dalam variabel `response`.
 
-`print(ctime(response.tx_time))` mengambil atribut `tx_time` dari `response`, yang berisi waktu saat ini dalam format UNIX (jumlah detik sejak 1 Januari 1970), dan mengonversinya ke format yang lebih mudah dibaca menggunakan `ctime`. Hasilnya kemudian dicetak.
+•	`print(ctime(response.tx_time))` mengambil atribut `tx_time` dari `response`, yang berisi waktu saat ini dalam format UNIX (jumlah detik sejak 1 Januari 1970), dan mengonversinya ke format yang lebih mudah dibaca menggunakan `ctime`. Hasilnya kemudian dicetak.
 
 ### Output
 Jika program dijalankan, outputnya akan menampilkan waktu saat ini berdasarkan waktu dari server NTP, dalam format yang lebih mudah dibaca, berikut adalah tampilannya:
@@ -359,13 +353,13 @@ if __name__ == '__main__':
 
 Pada baris awal terdapat fungsi `import` yang mengimpor beberapa modul:
 
-`socket` digunakan untuk melakukan komunikasi jaringan.
+•	`socket` digunakan untuk melakukan komunikasi jaringan.
 
-`struct` digunakan untuk mengonversi antara representasi data dalam memori dan format biner.
+•	`struct` digunakan untuk mengonversi antara representasi data dalam memori dan format biner.
 
-`sys` digunakan untuk menangani argumen yang diberikan ke program (meskipun tidak digunakan secara eksplisit dalam kode ini).
+•	`sys` digunakan untuk menangani argumen yang diberikan ke program (meskipun tidak digunakan secara eksplisit dalam kode ini).
 
-`time` digunakan untuk mengonversi waktu dalam format UNIX ke dalam format yang lebih mudah dibaca oleh manusia.
+•	`time` digunakan untuk mengonversi waktu dalam format UNIX ke dalam format yang lebih mudah dibaca oleh manusia.
 
 ```python
 NTP_SERVER = "0.uk.pool.ntp.org"
@@ -385,13 +379,13 @@ def sntp_client():
 
 Fungsi `sntp_client()` melakukan hal berikut:
 
-`client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)` membuat objek client sebagai instans dari socket UDP.
+•	`client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)` membuat objek client sebagai instans dari socket UDP.
 
-`data = '\x1b' + 47 * '\0'` mempersiapkan paket data yang akan dikirim ke server NTP. Karakter pertama \x1b adalah kode yang menunjukkan permintaan untuk waktu, diikuti dengan 47 karakter null yang diperlukan untuk format NTP.
+•	`data = '\x1b' + 47 * '\0'` mempersiapkan paket data yang akan dikirim ke server NTP. Karakter pertama \x1b adalah kode yang menunjukkan permintaan untuk waktu, diikuti dengan 47 karakter null yang diperlukan untuk format NTP.
 
-`client.sendto(data.encode('utf-8'), (NTP_SERVER, 123))` mengirimkan paket data ke server NTP pada port 123 (port yang digunakan untuk NTP).
+•	`client.sendto(data.encode('utf-8'), (NTP_SERVER, 123))` mengirimkan paket data ke server NTP pada port 123 (port yang digunakan untuk NTP).
 
-`data, address = client.recvfrom(1024)` menerima data respons dari server NTP, hingga 1024 byte, dan menyimpan alamat pengirimnya.
+•	`data, address = client.recvfrom(1024)` menerima data respons dari server NTP, hingga 1024 byte, dan menyimpan alamat pengirimnya.
 
 ```python
 if data:
@@ -403,13 +397,13 @@ if data:
 
 Bagian ini memeriksa apakah ada respons dari server. Jika ada `if`, maka:
 
-`print("Response received from:", address)` mencetak alamat server yang mengirimkan respons.
+•	`print("Response received from:", address)` mencetak alamat server yang mengirimkan respons.
 
-`t = struct.unpack('!12I', data)[10]` menggunakan `struct.unpack` untuk mengekstrak waktu dari respons NTP. Data dipecah menjadi 12 bilangan bulat, dan bilangan bulat ke-10 (indeks 10) berisi waktu saat ini dalam format UNIX.
+•	`t = struct.unpack('!12I', data)[10]` menggunakan `struct.unpack` untuk mengekstrak waktu dari respons NTP. Data dipecah menjadi 12 bilangan bulat, dan bilangan bulat ke-10 (indeks 10) berisi waktu saat ini dalam format UNIX.
 
-`t -= TIME1970` mengurangi `TIME1970` dari waktu yang diterima untuk mendapatkan waktu dalam detik sejak 1 Januari 1970.
+•	`t -= TIME1970` mengurangi `TIME1970` dari waktu yang diterima untuk mendapatkan waktu dalam detik sejak 1 Januari 1970.
 
-`print("\tTime=%s" % time.ctime(t))` mengonversi waktu tersebut ke dalam format yang lebih mudah dibaca oleh manusia dan mencetaknya.
+•	`print("\tTime=%s" % time.ctime(t))` mengonversi waktu tersebut ke dalam format yang lebih mudah dibaca oleh manusia dan mencetaknya.
 
 ### Output
 Jika program dijalankan, outputnya akan menampilkan waktu saat ini berdasarkan waktu dari server NTP, dalam format yang lebih mudah dibaca, tampilannya seperti berikut:
